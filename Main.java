@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 class Main {
@@ -7,16 +8,23 @@ class Main {
         System.out.println("Enter the expression, e.g.: 3 + 5");
         String userInput = scanner.nextLine();  // Reads user input
         String [] userInputSplit = userInput.split(" "); // Splits input into number/action/number, in string format
-        String first = userInputSplit[0]; //Initializes first number
-        String action = userInputSplit[1];//Initializes the calculation sign
-        String second = userInputSplit[2];//Initializes second number
-        /*String[] roman = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
-        int[] arabic ={1, 2, 3, 4, 5, 6, 7, 8, 9, 10};*/
+        String first = userInputSplit[0]; // Initializes first number
+        String action = userInputSplit[1];// Initializes the calculation sign
+        String second = userInputSplit[2];// Initializes second number
+        // These arrays are used for detecting if both input numbers are of one type (arabic or roman):
+        String[] roman = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
+        String[] arabic ={"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
-        //Checks if input numbers are NOT floats:
+        // Checks if input numbers are NOT floats:
         if (first.contains(".")||(second.contains("."))){throw new Exception("No floats allowed!");}
 
-        //laziest way to make arabic numbers out of roman ones
+        // Checks if both input numbers are arabic or roman:
+        if ((Arrays.asList(roman).contains(first)&&Arrays.asList(arabic).contains(second))||
+                ((Arrays.asList(arabic).contains(first))&&(Arrays.asList(roman).contains(second)))){
+            throw new Exception("Both numbers should be either arabic or roman");
+        }
+
+        // Laziest way to make arabic numbers out of roman ones:
         switch (first){
             case "I" -> first = "1";
             case "II" -> first = "2";
@@ -42,25 +50,21 @@ class Main {
             case "X" -> second = "10";
         }
 
-        //Transfers input numbers from string to int:
+        // Converts input numbers from string to int:
         int firstInt = Integer.parseInt(first); //first into an integer
         int secondInt = Integer.parseInt(second); //second into an integer
 
-        //Checks if input numbers are in 1-10 range:
+        // Checks if input numbers are in 1-10 range:
         if (1 > firstInt || 1 > secondInt){throw new Exception("Too small");}
         if (firstInt > 10 || secondInt > 10){throw new Exception("Too big");}
 
-
-
-        //Detects if any of +-/* is in the user's input & throws exception if isn't:
+        // Detects if any of +-/* is in user's input or throws exception:
         if (action.contains("-")||
                 (action.contains("+"))||
                 (action.contains("/"))||
                 (action.contains("*")))
         {System.out.print("");}
-        else {throw new Exception("No action signs detected");}
-
-
+        else {throw new Exception("No calculation sign detected");}
 
         // A switch to perform all the calculations +-/*
         switch (action) {
@@ -89,4 +93,11 @@ class Main {
         /*if (first.contains("i")||first.contains("v")||first.contains("x")||first.contains("l")){System.out.println("Roman 1 detected");}
         if (second.contains("i")||second.contains("v")||second.contains("x")||second.contains("l")){System.out.println("Roman 2 detected");}*/
 
-    }}}
+    }
+        //System.out.println(result);
+    }
+
+
+
+}
+
