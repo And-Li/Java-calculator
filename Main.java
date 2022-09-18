@@ -3,19 +3,54 @@ import java.util.Scanner;
 class Main {
     public static void main(String[] args) throws Exception {
 
-        Scanner scanner = new Scanner(System.in);  // Create a Scanner object
+        Scanner scanner = new Scanner(System.in);  // Creates a Scanner object
         System.out.println("Enter the expression, e.g.: 3 + 5");
-        String userInput = scanner.nextLine();  // Read user input
+        String userInput = scanner.nextLine();  // Reads user input
         String [] userInputSplit = userInput.split(" "); // Splits input into number/action/number, in string format
-        String first = userInputSplit[0]; //initialize first number
-        String action = userInputSplit[1];
-        String second = userInputSplit[2];
+        String first = userInputSplit[0]; //Initializes first number
+        String action = userInputSplit[1];//Initializes the calculation sign
+        String second = userInputSplit[2];//Initializes second number
+        /*String[] roman = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
+        int[] arabic ={1, 2, 3, 4, 5, 6, 7, 8, 9, 10};*/
 
-        
+        //Checks if input numbers are NOT floats:
+        if (first.contains(".")||(second.contains("."))){throw new Exception("No floats allowed!");}
 
-        //Should be done after Roman to arabic transfer:
-        int firstInt = Integer.parseInt(first); //transfers first into an integer
-        int secondInt = Integer.parseInt(second); // transfers second into an integer
+        //laziest way to make arabic numbers out of roman ones
+        switch (first){
+            case "I" -> first = "1";
+            case "II" -> first = "2";
+            case "III" -> first = "3";
+            case "IV" -> first = "4";
+            case "V" -> first = "5";
+            case "VI" -> first = "6";
+            case "VII" -> first = "7";
+            case "VIII" -> first = "8";
+            case "IX" -> first = "9";
+            case "X" -> first = "10";
+        }
+        switch (second){
+            case "I" -> second = "1";
+            case "II" -> second = "2";
+            case "III" -> second = "3";
+            case "IV" -> second = "4";
+            case "V" -> second = "5";
+            case "VI" -> second = "6";
+            case "VII" -> second = "7";
+            case "VIII" -> second = "8";
+            case "IX" -> second = "9";
+            case "X" -> second = "10";
+        }
+
+        //Transfers input numbers from string to int:
+        int firstInt = Integer.parseInt(first); //first into an integer
+        int secondInt = Integer.parseInt(second); //second into an integer
+
+        //Checks if input numbers are in 1-10 range:
+        if (1 > firstInt || 1 > secondInt){throw new Exception("Too small");}
+        if (firstInt > 10 || secondInt > 10){throw new Exception("Too big");}
+
+
 
         //Detects if any of +-/* is in the user's input & throws exception if isn't:
         if (action.contains("-")||
@@ -25,12 +60,9 @@ class Main {
         {System.out.print("");}
         else {throw new Exception("No action signs detected");}
 
-        /*if (first.contains("1")){
-            int firstInt = Integer.parseInt(first);
-            System.out.println(firstInt);
-        }*/
 
-        // switch to perform actions +-/*
+
+        // A switch to perform all the calculations +-/*
         switch (action) {
             case "-" -> {
                 int result = firstInt - secondInt;
