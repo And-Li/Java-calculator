@@ -83,7 +83,7 @@ class Main {
         }
         else {throw new Exception("No calculation sign detected!");
         }
-        
+
         //Main calculations are performed here:
         int x = switch (action) {
             case "-" -> (firstInt - secondInt);
@@ -91,7 +91,6 @@ class Main {
             case "/" -> (firstInt / secondInt);
             case "*" -> (firstInt * secondInt);
             default -> 0;
-
         };
 
         // Throws exception for getting answer<=0 with roman input:
@@ -100,7 +99,7 @@ class Main {
         }
 
         // Checks the input to have one numeral/one action/ one numeral:
-        if (userInputSplit.length > 3){throw new Exception("Input is overloaded! Try like this: 1 + 2");
+        if (userInputSplit.length != 3){throw new Exception("Input is wrong! Try like this: 1 + 2");
         }
 
         // Converts the result to roman numeral (if both input numerals were roman) or from int to string:
